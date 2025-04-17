@@ -1,0 +1,139 @@
+# pack.yaml - Versión optimizada con perfiles y estructura completa
+core:
+  package_manager: apt
+  base_packages:
+    - g++
+    - gcc
+    - python3
+    - git
+    - unrar
+    - wget
+    - curl
+    - neovim
+    - nmon
+  compiled_tools:
+    fastfetch:
+      source: "https://github.com/fastfetch-cli/fastfetch"
+      build_command: "cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build"
+      install_command: "sudo cmake --install build"
+
+window_managers:
+  common:
+    packages:
+      - lightdm
+      - xorg
+      - feh
+      - picom
+      - rofi
+    compiled_tools:
+      alacritty:
+        source: "https://github.com/alacritty/alacritty"
+        build_command: "cargo build --release"
+        install_path: "/usr/local/bin"
+
+  bspwm:
+    packages:
+      - bspwm
+      - sxhkd
+      - polybar
+
+  qtile:
+    packages:
+      - python3-pip
+      - python3-xcffib
+      - python3-cairocffi
+      - libpangocairo-1.0-0
+      - libxcb-render0-dev
+      - libxcb-shape0-dev
+      - libxcb-xkb-dev
+    pip_packages:
+      - qtile
+
+  openbox:
+    packages:
+      - openbox
+
+shells:
+  base_packages:
+    - tmux
+    - fish
+    - zsh
+    - fzf
+    - chafa
+  compiled_tools:
+    zinit:
+      source: "https://github.com/zdharma-continuum/zinit"
+      install_command: "bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)""
+    bat:
+      source: "https://github.com/sharkdp/bat"
+      build_command: "cargo build --release"
+    zsh-autosuggestions:
+      source: "https://github.com/zsh-users/zsh-autosuggestions"
+    zsh-syntax-highlighting:
+      source: "https://github.com/zsh-users/zsh-syntax-highlighting"
+    fzf-tab:
+      source: "https://github.com/Aloxaf/fzf-tab"
+    zsh-completions:
+      source: "https://github.com/zsh-users/zsh-completions"
+    zsh-history-substring-search:
+      source: "https://github.com/zsh-users/zsh-history-substring-search"
+    exa:
+      source: "https://github.com/ogham/exa"
+      build_command: "cargo build --release"
+    fd:
+      source: "https://github.com/sharkdp/fd"
+      build_command: "cargo build --release"
+    ripgrep:
+      source: "https://github.com/BurntSushi/ripgrep"
+      build_command: "cargo build --release"
+    tiv:
+      source: "https://github.com/radareorg/tiv"
+      build_command: "cargo build --release"
+
+system_utils:
+  monitoring: []
+  performance: []
+
+profiles:
+  full_stack:
+    description: "Instalación completa con todos los componentes"
+    includes:
+      - core
+      - window_managers.common
+      - window_managers.bspwm
+      - window_managers.qtile
+      - window_managers.openbox
+      - shells
+    excludes: []
+
+  developer:
+    description: "Entorno de desarrollo minimalista"
+    includes:
+      - core
+      - window_managers.common
+      - window_managers.bspwm
+      - shells.base_packages
+      - shells.compiled_tools.bat
+      - shells.compiled_tools.ripgrep
+    excludes:
+      - window_managers.qtile
+      - window_managers.openbox
+
+  retro:
+    description: "Configuración clásica con Openbox"
+    includes:
+      - core
+      - window_managers.common
+      - window_managers.openbox
+      - shells.base_packages
+    excludes:
+      - window_managers.bspwm
+      - window_managers.qtile
+
+metadata:
+  version: 2.1.0
+  dependencies:
+    - cargo
+    - cmake
+    - build-essential
+  update_check: "curl -s https://api.github.com/repos/setros/repo/releases/latest"

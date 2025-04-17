@@ -1,0 +1,71 @@
+---
+main:
+  paqueteria:
+    - g++
+    - gcc
+    - python3
+    - git
+    - unrar
+    - wget
+    - curl
+    - neovim
+    - nmon
+  compilar:
+    fastfetch: ""
+
+"gestores de ventanas":
+  main:
+    paqueteria:
+      - lightdm
+      - xorg
+      - feh
+      - picom
+      - rofi
+    compilar:
+      alacritty: ""
+  bspwm:
+    paqueteria:
+      - bspwm
+      - sxhkd
+      - polybar
+    compilar:
+  qtile:
+    paqueteria:
+      - python3-pip
+      - python3-xcffib 
+      - python3-cairocffi 
+      - libpangocairo-1.0-0 
+      - libxcb-render0-dev 
+      - libxcb-shape0-dev 
+      - libxcb-xkb-dev
+    pip:
+      - qtile
+    compilar:
+  openbox:
+    paqueteria:
+      - openbox
+
+
+"Utilidades del sistema":
+  paqueteria: []
+  compilar: {}
+
+Shells:
+  paqueteria:
+    - tmux
+    - fish
+    - zsh
+    - fzf
+    - chafa
+  compilar:
+    zinit: ""
+    bat: ""
+    zsh-autosuggestions: ""
+    zsh-syntax-highlighting: ""
+    fzf-tab: ""
+    zsh-completions: ""
+    zsh-history-substring-search: ""
+    exa: ""
+    fd: ""
+    ripgrep: ""
+    tiv: ""
